@@ -1,5 +1,5 @@
 # Sentient Dwarf Fortress was inevitable.
 
-The source code that powers <a href="https://botsin.space/@it_was_inevitable" rel="me">@it\_was\_inevitable</a> and <a href="https://botsin.space/@it_was_inevitable_slow" rel="me">@it\_was\_inevitable\_slow</a> on botsin.space in the Fediverse.
+This bot is a port of [it_was_inevitable](https://github.com/BenLubar/it_was_inevitable) by Ben Lubar, for Bluesky.
 
-See the entry on [BotWiki.org](https://botwiki.org/bot/it_was_inevitable/).
+All credit goes to him.

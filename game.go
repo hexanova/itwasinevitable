@@ -1,4 +1,4 @@
-// +build linux
+//go:build linux
 
 package main
 
@@ -110,7 +110,7 @@ func runGame(ctx context.Context, buffer *dataBuffer, ch chan<- string, addch <-
 			}
 
 			if first || len(buffer.queue) == 0 {
-				log.Println("First toot queued:", line)
+				log.Println("First post queued:", line)
 				first = false
 			}
 

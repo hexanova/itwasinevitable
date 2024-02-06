@@ -2,10 +2,7 @@ package main
 
 import (
 	"flag"
-	"os"
 	"time"
-
-	"github.com/mattn/go-mastodon"
 )
 
 var (
@@ -27,16 +24,9 @@ var (
 	// Maximum number of words that can differ in a "fuzzy" duplicate.
 	maxFuzzyDifferentWords = 2
 
-	// Make a toot this often.
-	tootInterval = 5 * time.Second
+	// Make a post this often.
+	postInterval = 2 * time.Hour
 )
-
-var config = &mastodon.Config{
-	Server:       "https://mastodon.example",
-	ClientID:     "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-	ClientSecret: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-	AccessToken:  "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-}
 
 func parseFlags() {
 	flag.IntVar(&maxQueuedLines, "max-queued-lines", maxQueuedLines, "Pause DF-AI when the queue length gets above this threshold.")
@@ -45,23 +35,7 @@ func parseFlags() {
 	flag.IntVar(&maxFuzzyDuplicates, "max-fuzzy-duplicates", maxFuzzyDuplicates, "Maximum number of “fuzzy” (some words changed) duplicates allowed.")
 	flag.IntVar(&fuzzyDuplicateWindow, "fuzzy-duplicate-window", fuzzyDuplicateWindow, "Number of lines to remember for “fuzzy” duplicate checking.")
 	flag.IntVar(&maxFuzzyDifferentWords, "max-fuzzy-different-words", maxFuzzyDifferentWords, "Maximum number of words that can differ in a “fuzzy” duplicate.")
-	flag.DurationVar(&tootInterval, "toot-interval", tootInterval, "Make a toot this often.")
-
-	const (
-		placeholderServer = "https://mastodon.example"
-		placeholderToken  = "[missing]"
-	)
-
-	flag.StringVar(&config.Server, "server", placeholderServer, "Mastodon server name (required)")
-	flag.StringVar(&config.ClientID, "client-id", placeholderToken, "OAuth2 Client ID (required)")
-	flag.StringVar(&config.ClientSecret, "client-secret", placeholderToken, "OAuth2 Client Secret (required)")
-	flag.StringVar(&config.AccessToken, "access-token", placeholderToken, "OAuth2 Access Token (required)")
+	flag.DurationVar(&postInterval, "post-interval", postInterval, "Make a post this often.")
 
 	flag.Parse()
-
-	if !isExampleMode && (config.Server == placeholderServer || config.ClientID == placeholderToken || config.ClientSecret == placeholderToken || config.AccessToken == placeholderToken) {
-		_, _ = os.Stderr.WriteString("server, client-id, client-secret, and access-token are required.\n\n")
-		flag.Usage()
-		os.Exit(2)
-	}
 }

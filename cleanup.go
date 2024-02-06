@@ -1,16 +1,15 @@
-// +build linux
+//go:build linux
 
 package main
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
 
 func cleanup() {
 	// Enable only conversation in the log.
-	if err := ioutil.WriteFile("/df_linux/data/init/announcements.txt", announcementstxt, 0644); err != nil {
+	if err := os.WriteFile("/df_linux/data/init/announcements.txt", announcementstxt, 0644); err != nil {
 		panic(err)
 	}
 
@@ -25,13 +24,13 @@ func cleanup() {
 	}
 
 	// Set up df-ai.
-	if err := ioutil.WriteFile("/df_linux/dfhack-config/df-ai.json", dfaijson, 0644); err != nil {
+	if err := os.WriteFile("/df_linux/dfhack-config/df-ai.json", dfaijson, 0644); err != nil {
 		panic(err)
 	}
 }
 
 func clearSaves() error {
-	files, err := ioutil.ReadDir("/df_linux/data/save")
+	files, err := os.ReadDir("/df_linux/data/save")
 	if err != nil {
 		return err
 	}

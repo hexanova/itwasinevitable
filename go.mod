@@ -2,8 +2,6 @@ module github.com/BenLubar/it_was_inevitable
 
 go 1.21
 
-toolchain go1.21.6
-
 require (
 	github.com/creack/pty v1.1.21
 	github.com/hpcloud/tail v1.0.0
@@ -743,7 +741,7 @@ require (
 	github.com/ugorji/go v1.1.7 // indirect
 	github.com/ugorji/go/codec v1.1.7 // indirect
 	github.com/urfave/cli v1.22.10 // indirect
-	github.com/urfave/cli/v2 v2.25.7 // indirect
+	github.com/urfave/cli/v2 v2.27.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/viant/assertly v0.4.8 // indirect

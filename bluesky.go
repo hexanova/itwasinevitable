@@ -1,6 +1,3 @@
-//go:build !example
-// +build !example
-
 package main
 
 import (
@@ -15,62 +12,11 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-//const isExampleMode = false
-
 type Config struct {
 	BlueskyURL      string `env:"BLUESKY_URL,required"`
 	BlueskyUsername string `env:"BLUESKY_USERNAME,required"`
 	BlueskyPassword string `env:"BLUESKY_PASSWORD,required"`
 }
-
-// func pullExistingStatuses(cctx *cli.Context, xrpcc *xrpc.Client) {
-// 	if minLinesBeforeDuplicate == 0 && fuzzyDuplicateWindow == 0 {
-// 		return
-// 	}
-
-// 	account, err := client.GetAccountCurrentUser(ctx)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-
-// 	i := minLinesBeforeDuplicate - 1
-// 	j := fuzzyDuplicateWindow - 1
-
-// 	pg := &mastodon.Pagination{}
-
-// 	for pg.Limit == 0 {
-// 		pg.Limit = int64(i + 1)
-
-// 		statuses, err := client.GetAccountStatuses(ctx, account.ID, pg)
-// 		if err != nil {
-// 			panic(err)
-// 		}
-
-// 		for _, s := range statuses {
-// 			if !strings.HasPrefix(s.Content, "<p>") {
-// 				continue
-// 			}
-// 			if k := strings.Index(s.Content, "</p>"); k != -1 {
-// 				line := html.UnescapeString(s.Content[len("<p>"):k])
-// 				log.Println("Loaded recent toot:", line)
-
-// 				if i >= 0 {
-// 					buffer.recent[i] = line
-// 					i--
-// 				}
-
-// 				if j >= 0 {
-// 					buffer.fuzzy[j] = strings.Fields(line)
-// 					j--
-// 				}
-
-// 				if i < 0 && j < 0 {
-// 					return
-// 				}
-// 			}
-// 		}
-// 	}
-// }
 
 func postToBluesky(cctx *cli.Context, xrpcc *xrpc.Client, message string, cfg *Config) {
 

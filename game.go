@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"syscall"
 	"time"
@@ -51,9 +52,24 @@ func dwarfFortress(ctx context.Context, buffer *dataBuffer, ch chan<- string) {
 }
 
 func runGame(ctx context.Context, buffer *dataBuffer, ch chan<- string, addch <-chan string, debugch <-chan struct{}) {
-	cmd := exec.CommandContext(ctx, "/df_linux/dfhack", "--exec")
-	cmd.Env = append(cmd.Env, "TERM=xterm-256color")
-	cmd.Dir = "/df_linux"
+	cwd, err := os.Getwd()
+	if err != nil {
+		fmt.Println("Error getting current working directory:", err)
+		return
+	}
+	dfDir := filepath.Join(cwd, "df_linux")
+	cmd := exec.CommandContext(ctx, filepath.Join(dfDir, "dfhack"), "--exec")
+	cmd.Env = append(os.Environ(), "TERM=xterm-256color")
+
+	err = cmd.Run()
+	if err != nil {
+		fmt.Printf("Error executing command: %v\n", err)
+		return
+	}
+
+	// cmd := exec.CommandContext(ctx, "/df_linux/dfhack", "--exec")
+	// cmd.Env = append(cmd.Env, "TERM=xterm-256color")
+	// cmd.Dir = "/df_linux"
 
 	f, err := pty.Start(cmd)
 	if err != nil {

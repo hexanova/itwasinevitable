@@ -32,7 +32,7 @@ func main() {
 		log.Fatal("Error reading .env variables:", err)
 	}
 
-	xrpcc, err := cliutil.GetXrpcClient(cctx, false)
+	xrpcc, err = cliutil.GetXrpcClient(cctx, false)
 	if err != nil {
 		log.Fatal("Error getting XRPC client:", err)
 	}
